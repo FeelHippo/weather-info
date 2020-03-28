@@ -16,9 +16,27 @@ You will also see any lint errors in the console.<br />
 
 This is where I keep track of time, and update the app's internal clock, so to speak. 
 
-[a big thanks to Tiffany Rayside for this:](https://codepen.io/tmrDevelops/pen/VYKyge/?editors=0010)
+[a big thanks to Tiffany Rayside for this cool looking watch](https://codepen.io/tmrDevelops/pen/VYKyge/?editors=0010)
 
 I am not using this.state here because, according to the official documentation:<br />
 "If you don't use something in render(), it shouldn't be in the state"
 
+```javascript
+    componentDidMount() {
+        this.intervalID = setInterval(
+            () => this.tick(),
+            1000
+        );
+    }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalID)
+    }
+
+    async tick() {
+        this.setState({
+            time: new Date()
+        });
+        await updateTime(this.state.time)
+    }
+```
