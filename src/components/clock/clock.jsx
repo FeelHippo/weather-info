@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import Graph from '../graph/graph';
-import '../litView/litView.js'
-import updateTime from './clock-works.js'
-import '../../style/clock-style.css'
-import api from '../../api/api'
+import '../litView/litView.js';
+import updateTime from './clock-works.js';
+import '../../style/clock-style.css';
+import api from '../../api/api';
 
 const { get_temperature, get_power } = api(); 
 
@@ -52,7 +52,7 @@ export default class Clock extends Component {
         const { time, graph_view, temperature_chunk, temperature_unit, power_chunk, power_unit } = this.state
         return(
             <Fragment>
-                {graph_view?
+                {graph_view && temperature_chunk[0] && power_chunk[0]?
                     <div>
                         <Graph data={ temperature_chunk } unit={ temperature_unit } />
                         <Graph data={ power_chunk } unit={ power_unit } />

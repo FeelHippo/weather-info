@@ -1,4 +1,5 @@
 import React from 'react';
+import './loader.js'
 import Clock from './components/clock/clock';
 import './App.css';
 
