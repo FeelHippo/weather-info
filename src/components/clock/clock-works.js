@@ -16,14 +16,13 @@ export default async function updateTime(curr_time) {
     var currentMin = currentDate.getMinutes();
     var currentHr = currentDate.getHours(); 
     
-    console.log('This is the clock-works.js', currentDate);
     var g = $.createRadialGradient(250,250,.5,250,250,250);  
     g.addColorStop(0, 'hsla(180, 55%, 8%, 1)');  
     g.addColorStop(1, 'hsla(180, 95%, 15%, 1)');  
     $.fillStyle = g;
     $.fillRect( 0, 0, c.width, c.height );
     
-    if(currentHr == 0){  //if midnight (00 hours) hour = 12
+    if(currentHr === 0){  //if midnight (00 hours) hour = 12
     currentHr=12;
     }
     else if (currentHr >= 13 ){  //convert military hours at and over 1300 (1pm) to regular hours by subtracting 12. 

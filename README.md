@@ -7,10 +7,15 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000)<br />
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.<br />
+Please note, this command simultaneously executes the following command: <br />
+```javascript
+yaml2json data.yml > data.json
+```
+[This the NPM resource](https://github.com/jeremyfa/yaml.js) <br />
+This is the easiest was I could figure out to convert a rather unhandy .yml file into a common .json, so as to simulate an API request
+
 
 ## Clock Component
 
@@ -40,3 +45,10 @@ I am not using this.state here because, according to the official documentation:
         await updateTime(this.state.time)
     }
 ```
+## API 
+
+I have simulated a call to an API, see ./api/api.js<br />
+Every 5 seconds the API will retrieve 720 samples from the .yml file.<br />
+This is to have 1 hour worth of data on the front end.<br />
+I decided to divide the data in two chunks, one for the temperature, and the other, of course, for the power. <br />
+I then implement two separate graphs, one for each chunk, so as to have different views at my disposal.<br />
