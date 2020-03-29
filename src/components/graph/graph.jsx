@@ -7,7 +7,9 @@ export default class Graph extends Component {
         super(props);
         this.state = {
             data: [],
-            unit: ''
+            unit: '',
+            min: 0,
+            max: 0
         }
     }
 
@@ -15,31 +17,65 @@ export default class Graph extends Component {
         try {
             let today = new Date();
             const data_formatted = [...this.props.data];
-            // note to self: forEach takes a second parameter which is the 'this' of the scope
-            // this is necessary because data_formatted in this case is NOT the 'this' of the .forEach()
-            data_formatted.forEach((el, index) => {
-                el.time = new Date( today.getFullYear(), 
-                                    today.getMonth(),  
-                                    today.getDate(), 
-                                    `${el.time.split(':')[0]}`, 
-                                    `${el.time.split(':')[1]}`, 
-                                    `${el.time.split(':')[2]}`);
-            }, data_formatted);
+
+            if (this.props.unit === 'dK') {
+                // note to self: forEach takes a second parameter which is the 'this' of the scope
+                // this is necessary because data_formatted in this case is NOT the 'this' of the .forEach()
+                // converted "degree Kelvin" into Celsius. "degree Kelvin" is now known as °K
+                data_formatted.forEach((el, index) => {
+                    el.time = new Date( today.getFullYear(), 
+                                        today.getMonth(),  
+                                        today.getDate(), 
+                                        `${el.time.split(':')[0]}`, 
+                                        `${el.time.split(':')[1]}`, 
+                                        `${el.time.split(':')[2]}`);
+                    el.value = el.value - 273.15;
+                }, data_formatted);
+
+                // find min and max values within the current array, use it to define graph resolution
+                const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
+                const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
             
-            console.log(data_formatted);
-        
-            this.setState(state => {
-                const data = [...data_formatted]
-                const unit = this.props.unit
-                return { data, unit }
-            })
+                this.setState(state => {
+                    const data = [...data_formatted]
+                    const unit = this.props.unit
+                    const min = chunk_min
+                    const max = chunk_max
+                    return { data, unit, min, max }
+                })
+            } else if (this.props.unit === 'MW') {
+                data_formatted.forEach((el, index) => {
+                    el.time = new Date( today.getFullYear(), 
+                                        today.getMonth(),  
+                                        today.getDate(), 
+                                        `${el.time.split(':')[0]}`, 
+                                        `${el.time.split(':')[1]}`, 
+                                        `${el.time.split(':')[2]}`);
+                    el.value = parseFloat(el.value) * 1000;
+                }, data_formatted);
+
+                // find min and max values within the current array, use it to define graph resolution
+                const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
+                const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
+                
+                console.log(chunk_max, chunk_min);
+            
+                this.setState(state => {
+                    const data = [...data_formatted]
+                    const unit = this.props.unit
+                    const min = chunk_min
+                    const max = chunk_max
+                    return { data, unit, min, max }
+                })
+            }
+            
         } catch (error) {
             console.log(error);
         }        
     }
 
     render() {
-        const {data, unit} = this.state;
+        const {data, unit, min, max} = this.state;
         console.log(data);
         
         return (
@@ -47,13 +83,15 @@ export default class Graph extends Component {
                 {data ?
                     <div>
                         <MetricsGraphics
-                            title={ unit === 'dK' ? 'Temperature' : 'kWh' }
-                            description="Temperature over the past hour."
+                            title={ unit === 'dK' ? 'Temperature' : 'MegaWatts' }
                             data= { data }
-                            width={400}
-                            height={250}
+                            width={600}
+                            height={200}
                             x_accessor="time"
                             y_accessor="value"
+                            min_y={ min }
+                            max_y={ max }
+                            animate_on_load={true}
                         />
                     </div>
                     :

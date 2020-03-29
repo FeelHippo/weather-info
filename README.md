@@ -52,3 +52,18 @@ Every 5 seconds the API will retrieve 720 samples from the .yml file.<br />
 This is to have 1 hour worth of data on the front end.<br />
 I decided to divide the data in two chunks, one for the temperature, and the other, of course, for the power. <br />
 I then implement two separate graphs, one for each chunk, so as to have different views at my disposal.<br />
+
+## Graph component
+
+I decided to rely on [MetricsGraphics.js](https://github.com/metricsgraphics/metrics-graphics#resources) to display the data from the API. 
+So as to be able to use jQuery with ReactJS, I had to create a loader.<br />
+See ./src.loader.js, which I imported in App.js so as to apply it globally: 
+
+```javascript
+window.$ = window.jQuery = require('jquery')
+```
+
+This allowed me to use [MetricsGraphics React Component](https://github.com/metricsgraphics/react-metrics-graphics), which is a React extension.
+This way, I can use the same component, graph.jsx, to display two separate graphs, one dedicated to temperatures, and the other to power. 
+
+See the componente for how I converted dK to Celsius, and MW to kWh
