@@ -1,0 +1,54 @@
+/* Home Page */
+
+.home {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr 2fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "menu lit lit graph graph"
+        "menu lit lit graph graph"
+        "menu canvas canvas graph graph"
+        "menu canvas canvas graph graph"
+    ;
+}
+
+.home:before {
+    background-image: url('../images/clouds.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover; /* you change this to "contain" if you don't want the images to be cropped */
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+
+    opacity: 0.15;
+}
+
+
+.graph_container {
+    grid-area: graph;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+.chart {
+    width: 100%;
+    height: auto;
+}
+
+
+.lit {
+    grid-area: lit;
+}
+
+.canvas {
+    grid-area: canvas;
+    border-radius: 100%;
+}

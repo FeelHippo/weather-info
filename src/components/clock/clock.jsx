@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Graph from '../graph/graph';
 import '../litView/litView.js';
 import updateTime from './clock-works.js';
+import '../../style/home.css'
 import '../../style/clock-style.css';
 import api from '../../api/api';
 
@@ -49,22 +50,34 @@ export default class Clock extends Component {
     }
 
     render() {
-        const { time, graph_view, temperature_chunk, temperature_unit, power_chunk, power_unit } = this.state
+        const { graph_view, temperature_chunk, temperature_unit, power_chunk, power_unit } = this.state
         return(
-            <Fragment>
+            <div className='home'>
                 {graph_view && temperature_chunk[0] && power_chunk[0]?
-                    <div>
-                        <Graph data={ temperature_chunk } unit={ temperature_unit } />
-                        <Graph data={ power_chunk } unit={ power_unit } />
+                    <div className='graph_container'>
+                        <section className='chart'>
+                            <Graph data={ temperature_chunk } unit={ temperature_unit } />
+                        </section>
+                        <section className='chart'>
+                            <Graph data={ power_chunk } unit={ power_unit } />
+                        </section>
                     </div>                    
-                    : <lit-view time={ time } />
+                    : <div className="lds-dual-ring graph_container"></div>
                 }
-                
+                <div className='lit'>
+                    {power_chunk ? 
+                        <lit-view data={ power_chunk } unit={ power_unit } />
+                        : <div className="lds-dual-ring canvas"></div>
+                    }
+                    
+                </div>
                 {this.state.time ?
-                    <canvas id="canv"></canvas>
-                    : <div>Loading</div>
+                    <div className='canvas'>
+                        <canvas id="canv" width={500} height={500}></canvas>
+                    </div>
+                    : <div className="lds-dual-ring canvas"></div>
                 }
-            </Fragment>
+            </div>
         )
     }
 }

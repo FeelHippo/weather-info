@@ -5,7 +5,7 @@ const api = () => {
         get_temperature: async (time) => {
             try {
                 const temperature_unit = Data.temperature.unit;
-                // this is where I would normally use a axios.get()
+                // this is where I would normally use axios.get()
                 const time_stamp = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
                 const time_index = Data.temperature.values.findIndex(el => el.time === time_stamp);
                 const temperature_chunk = Data.temperature.values.slice(time_index - 720, time_index);                
