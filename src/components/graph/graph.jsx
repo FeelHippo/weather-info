@@ -45,14 +45,14 @@ export default class Graph extends Component {
                     return { data, unit, min, max }
                 })
             } else if (this.props.unit === 'MW') {
-                await data_formatted.forEach((el, index) => {
+                await data_formatted.forEach((el) => {
                     el.time = new Date( today.getFullYear(), 
                                         today.getMonth(),  
                                         today.getDate(), 
                                         `${el.time.split(':')[0]}`, 
                                         `${el.time.split(':')[1]}`, 
                                         `${el.time.split(':')[2]}`);
-                    el.value = parseFloat(el.value) * 1000;
+                    el.value = parseFloat(el.value);
                 }, data_formatted);
 
                 // find min and max values within the current array, use it to define graph resolution
