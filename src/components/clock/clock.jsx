@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Graph from '../graph/graph';
-import Gauge from '../litView/litView'
+import Gauge from '../litView/litView';
+import NavBar from '../nav-bar/nav-bar';
 import updateTime from './clock-works.js';
 import '../../style/home.css'
 import '../../style/clock-style.css';
@@ -55,27 +56,32 @@ export default class Clock extends Component {
     render() {
         const { temperature_chunk, temperature_unit, power_chunk, power_unit } = this.state
         return(
-            <div className='home'>
-                {temperature_chunk[0] && power_chunk[0] ?
-                    <div className='graph_container'>
-                        <section className='chart'>
-                            <Graph data={ temperature_chunk } unit={ temperature_unit } />
-                        </section>
-                        <section className='chart'>
-                            <Graph data={ power_chunk } unit={ power_unit } />
-                        </section>
+            <div className="main">
+                <NavBar />
+                <div className='home'>
+                    {temperature_chunk[0] && power_chunk[0] ?
+                        <Fragment>
+                            <div className='graph_container'>
+                            <section className='chart'>
+                                <Graph data={ temperature_chunk } unit={ temperature_unit } />
+                            </section>
+                            <section className='chart'>
+                                <Graph data={ power_chunk } unit={ power_unit } />
+                            </section>
+                        </div>
                         <div className='lit'>
                             <Gauge data={ power_chunk } />
                         </div>
-                    </div>                    
-                    : <div className="lds-dual-ring graph_container"></div>
-                }
-                {this.state.time ?
-                    <div className='canvas'>
-                        <canvas id="canv" width={500} height={500}></canvas>
-                    </div>
-                    : <div className="lds-dual-ring canvas"></div>
-                }
+                        </Fragment>                    
+                        : <div className="lds-dual-ring graph_container"></div>
+                    }
+                    {this.state.time ?
+                        <div className='canvas'>
+                            <canvas id="canv" width={500} height={500}></canvas>
+                        </div>
+                        : <div className="lds-dual-ring canvas"></div>
+                    }
+                </div>
             </div>
         )
     }

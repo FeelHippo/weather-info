@@ -1,7 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Serif:700);
+:root {
+  font-size: 16px;
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+}
+
 *, html {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
 body {

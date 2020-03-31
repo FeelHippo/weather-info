@@ -1,15 +1,22 @@
 /* Home Page */
 
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
 .home {
+    width: 100%;
+    height: 100vh;
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1.5fr 1.5fr 2fr 2fr;
+    grid-template-columns: 1.5fr 1.5fr 2fr 2fr;
     grid-template-rows: auto;
     grid-template-areas: 
-        "menu lit lit graph graph"
-        "menu lit lit graph graph"
-        "menu canvas canvas graph graph"
-        "menu canvas canvas graph graph"
+        "lit lit graph graph"
+        "lit lit graph graph"
+        "canvas canvas graph graph"
+        "canvas canvas graph graph"
     ;
 }
 
@@ -35,7 +42,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content:space-around;
+    justify-content: center;
 }
 
 .chart {
@@ -46,9 +53,67 @@
 
 .lit {
     grid-area: lit;
+    margin: 0 auto;
+    justify-self: center;
+    align-self: center;
 }
 
 .canvas {
     grid-area: canvas;
     border-radius: 100%;
+    transform: scale(0.6);
+    top: 0%;
+    justify-self: center;
+    align-self: flex-start;
 }
+
+/* navigation bar */
+
+.navbar {
+    width: 10rem;
+    height: 100vh;
+}
+
+
+.navbar-nav {
+    list-style: none;  
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: auto;
+}
+
+.nav-item {
+    width: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.nav-item:last-child {
+    margin-top: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    filter: grayscale(100%) opacity(0.7);
+    transition: var(--transition-speed);
+}
+
+.link-text {
+    display: none;
+    margin-left: 1rem;
+}
+
+.nav-link svg {
+    width: 2rem;
+    min-width: 2rem;
+    margin: 0 1.5rem;
+  }
