@@ -27,32 +27,36 @@ export default class Clock extends Component {
         );
     }
 
+
     componentWillUnmount() {
         clearInterval(this.intervalID)
     }
 
     async tick() {
-        this.setState({
-            time: new Date()
-        });
-        await updateTime(this.state.time)
         // call to API, retrieve chunk of data
         if(this.state.time.getSeconds() % 5 === 0) {
-                const { temperature_chunk, temperature_unit } = await get_temperature(this.state.time);
-                const { power_chunk, power_unit } = await get_power(this.state.time);
-                
-                this.setState(state => {
-                    return { temperature_chunk, temperature_unit, power_chunk, power_unit }
-                })
+            const { temperature_chunk, temperature_unit } = await get_temperature(this.state.time);
+            const { power_chunk, power_unit } = await get_power(this.state.time);
+            
+            this.setState({
+                temperature_chunk: temperature_chunk, 
+                temperature_unit: temperature_unit, 
+                power_chunk: power_chunk, 
+                power_unit: power_unit 
+            })
+
         }
-        
+        await updateTime(this.state.time);
+        this.setState({
+            time: new Date()
+        })      
     }
 
     render() {
         const { temperature_chunk, temperature_unit, power_chunk, power_unit } = this.state
         return(
             <div className='home'>
-                {temperature_chunk[0] && power_chunk[0]?
+                {temperature_chunk[0] && power_chunk[0] ?
                     <div className='graph_container'>
                         <section className='chart'>
                             <Graph data={ temperature_chunk } unit={ temperature_unit } />

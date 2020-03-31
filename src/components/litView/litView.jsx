@@ -14,14 +14,14 @@ export default class Gauge extends Component {
         this.options = {
             width: 600,
             height: 220,
-            redFrom: 40500000,
-            redTo: 41000000,
-            yellowFrom: 40000000,
-            yellowTo: 40499999,
+            redFrom: 50000000,
+            redTo: 52000000,
+            yellowFrom: 48000000,
+            yellowTo: 49999999,
             greenFrom: 39000000,
-            greenTo: 39500000,
+            greenTo: 42000000,
             minorTicks: 5,
-            max: 41000000,
+            max: 51000000,
             min: 39000000,
             forceIFrame: true
         }

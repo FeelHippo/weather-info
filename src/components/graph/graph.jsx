@@ -16,6 +16,8 @@ export default class Graph extends Component {
     // afterall the amount of data is consistent == 720 x 2 items each render
     async componentDidMount() {
         try {
+            console.log(this.props.data);
+            
             let today = new Date();            
             const data_formatted = [...this.props.data];
 
@@ -71,6 +73,16 @@ export default class Graph extends Component {
         } catch (error) {
             console.log(error);
         }        
+    }
+
+    // Ensure the component will be updated if the data is not up to date
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.data[0].time);
+        
+        if(nextProps.data[0].time !== this.props.data[0].time) {
+            this.forceUpdate();
+        }
     }
 
 
