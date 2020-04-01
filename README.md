@@ -67,3 +67,14 @@ This allowed me to use [MetricsGraphics React Component](https://github.com/metr
 This way, I can use the same component, graph.jsx, to display two separate graphs, one dedicated to temperatures, and the other to power. 
 
 See the componente for how I converted dK to Celsius, and MW to kWh
+
+## Gauge
+
+After experimenting with Polymer components a bit, I've come to the conclusion that React is not fully compatible, and it would be counter-productive to integrate a single component into my app.<br />
+I then opted for one of Google's Charts. [A gauge with a dial, rendered within the browser using SVG or VML](https://developers.google.com/chart/interactive/docs/gallery/gauge).
+Every single time it is rendered, the gauge will use the minimum kWh figure as its minimum, and vice versa max kWh from the same data sample to determine its max.
+
+## NavBar
+
+I have adapted a navigation bar that I regularly use in my personal project, nothing fancy, but quite effective. 
+
