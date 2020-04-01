@@ -6,9 +6,9 @@ export default async function updateTime(curr_time) {
     var c = document.getElementById('canv');
     var $ = c.getContext('2d'); 
     var ang = 0;
-    var secondsColor = 'hsla(180, 85%, 5%, .7)';
-    var minutesColor = 'hsla(180, 95%, 15%, 1)';
-    var hoursColor = 'hsla(180, 75%, 25%, 1)';
+    var secondsColor = '#ff9900';
+    var minutesColor = '#dc3912';
+    var hoursColor = '#4684ee';
 
     var currentDate = curr_time;
     var currentSec = currentDate.getSeconds();
@@ -17,8 +17,8 @@ export default async function updateTime(curr_time) {
     var currentHr = currentDate.getHours(); 
     
     var g = $.createRadialGradient(250,250,.5,250,250,250);  
-    g.addColorStop(0, 'hsla(180, 55%, 8%, 1)');  
-    g.addColorStop(1, 'hsla(180, 95%, 15%, 1)');  
+    g.addColorStop(0, 'blue');  
+    g.addColorStop(1, '#0164C4');  
     $.fillStyle = g;
     $.fillRect( 0, 0, c.width, c.height );
     

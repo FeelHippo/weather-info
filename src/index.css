@@ -1,12 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Noto+Serif:700);
-:root {
-  font-size: 16px;
-  --text-primary: #b6b6b6;
-  --text-secondary: #ececec;
-  --bg-primary: #23232e;
-  --bg-secondary: #141418;
-}
-
 *, html {
   box-sizing: border-box;
   margin: 0;
@@ -20,11 +12,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-	background: hsla(180, 95%, 15%, 1);
 	font-family: 'Noto Serif', serif;
 	font-size: 4em;
-  overflow:hidden;
-  width:100%; 
+  overflow:hidden; 
+}
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #6649b8;
 }
 
 code {

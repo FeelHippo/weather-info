@@ -103,6 +103,7 @@ export default class Graph extends Component {
                             min_y={ min }
                             max_y={ max }
                             animate_on_load={true}
+                            transition_on_update={true}
                         />
                     </div>
                     :
