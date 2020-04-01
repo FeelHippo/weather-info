@@ -6,6 +6,7 @@ export default class Graph extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            today: new Date(),
             data: [],
             unit: '',
             min: 0,
@@ -15,7 +16,7 @@ export default class Graph extends Component {
     // a good old async await here seems to be fixing an issue I had with the data inflow
     // afterall the amount of data is consistent == 720 x 2 items each render
     async componentDidMount() {
-        let today = new Date();            
+        let { today } = this.state;            
         const data_formatted = [...this.props.data];
 
         if (this.props.unit === 'dK') {
