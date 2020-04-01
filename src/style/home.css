@@ -29,7 +29,7 @@
     ;
 }
 
-.home:before {
+.home::before {
     background-image: url('../images/clouds.jpeg');
     background-position: center center;
     background-repeat: no-repeat;

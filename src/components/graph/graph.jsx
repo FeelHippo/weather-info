@@ -15,70 +15,62 @@ export default class Graph extends Component {
     // a good old async await here seems to be fixing an issue I had with the data inflow
     // afterall the amount of data is consistent == 720 x 2 items each render
     async componentDidMount() {
-        try {
-            console.log(this.props.data);
-            
-            let today = new Date();            
-            const data_formatted = [...this.props.data];
+        let today = new Date();            
+        const data_formatted = [...this.props.data];
 
-            if (this.props.unit === 'dK') {
-                // note to self: forEach takes a second parameter which is the 'this' of the scope
-                // this is necessary because data_formatted in this case is NOT the 'this' of the .forEach()
-                // converted "degree Kelvin" into Celsius. "degree Kelvin" is now known as °K
-                await data_formatted.forEach((el, index) => {
-                    el.time = new Date( today.getFullYear(), 
-                                        today.getMonth(),  
-                                        today.getDate(), 
-                                        `${el.time.split(':')[0]}`, 
-                                        `${el.time.split(':')[1]}`, 
-                                        `${el.time.split(':')[2]}`);
-                    el.value = el.value - 273.15;
-                }, data_formatted);
+        if (this.props.unit === 'dK') {
+            // note to self: forEach takes a second parameter which is the 'this' of the scope
+            // this is necessary because data_formatted in this case is NOT the 'this' of the .forEach()
+            // converted "degree Kelvin" into Celsius. "degree Kelvin" is now known as °K
+            await data_formatted.forEach((el, index) => {
+                el.time = new Date( today.getFullYear(), 
+                                    today.getMonth(),  
+                                    today.getDate(), 
+                                    `${el.time.split(':')[0]}`, 
+                                    `${el.time.split(':')[1]}`, 
+                                    `${el.time.split(':')[2]}`);
+                el.value = el.value - 273.15;
+            }, data_formatted);
 
-                // find min and max values within the current array, use it to define graph resolution
-                const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
-                const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
-            
-                this.setState(state => {
-                    const data = [...data_formatted]
-                    const unit = this.props.unit
-                    const min = chunk_min
-                    const max = chunk_max
-                    return { data, unit, min, max }
-                })
-            } else if (this.props.unit === 'MW') {
-                await data_formatted.forEach((el) => {
-                    el.time = new Date( today.getFullYear(), 
-                                        today.getMonth(),  
-                                        today.getDate(), 
-                                        `${el.time.split(':')[0]}`, 
-                                        `${el.time.split(':')[1]}`, 
-                                        `${el.time.split(':')[2]}`);
-                    el.value = parseFloat(el.value);
-                }, data_formatted);
+            // find min and max values within the current array, use it to define graph resolution
+            const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
+            const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
+        
+            this.setState(state => {
+                const data = [...data_formatted]
+                const unit = this.props.unit
+                const min = chunk_min
+                const max = chunk_max
+                return { data, unit, min, max }
+            })
+        } else if (this.props.unit === 'MW') {
+            await data_formatted.forEach((el) => {
+                el.time = new Date( today.getFullYear(), 
+                                    today.getMonth(),  
+                                    today.getDate(), 
+                                    `${el.time.split(':')[0]}`, 
+                                    `${el.time.split(':')[1]}`, 
+                                    `${el.time.split(':')[2]}`);
+                el.value = parseFloat(el.value);
+            }, data_formatted);
 
-                // find min and max values within the current array, use it to define graph resolution
-                const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
-                const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
-            
-                this.setState(state => {
-                    const data = [...data_formatted]
-                    const unit = this.props.unit
-                    const min = chunk_min
-                    const max = chunk_max
-                    return { data, unit, min, max }
-                })
-            }
-            
-        } catch (error) {
-            console.log(error);
-        }        
+            // find min and max values within the current array, use it to define graph resolution
+            const chunk_min = Math.min.apply(Math, data_formatted.map(function(o) { return o.value }));
+            const chunk_max = Math.max.apply(Math, data_formatted.map(function(o) { return o.value }));
+        
+            this.setState(state => {
+                const data = [...data_formatted]
+                const unit = this.props.unit
+                const min = chunk_min
+                const max = chunk_max
+                return { data, unit, min, max }
+            })
+        }       
     }
 
     // Ensure the component will be updated if the data is not up to date
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.data[0].time);
         
         if(nextProps.data[0].time !== this.props.data[0].time) {
             this.forceUpdate();
